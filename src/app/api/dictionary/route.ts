@@ -50,9 +50,3 @@ export async function GET() {
     }
   }
 }
-
-export async function GE2T() {
-  await sql`DROP TABLE IF EXISTS dictionary`;
-
-  return NextResponse.json({ drop: "ok" });
-}

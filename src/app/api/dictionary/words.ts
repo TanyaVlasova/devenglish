@@ -1,0 +1,27 @@
+import { Word } from "@/app/types";
+
+export const words: Omit<Word, "id">[] = [
+  { text: "access", translation: "доступ" },
+  { text: "permission", translation: "разрешение" },
+  { text: "denied", translation: "отклонен,запрещен" },
+  { text: "improved", translation: "улучшенный" },
+  { text: "instantly", translation: "немедленно" },
+  { text: "boot", translation: "загружать" },
+  { text: "loop", translation: "цикл" },
+  { text: "issue", translation: "вопрос,проблема" },
+  { text: "expansion", translation: "расширение" },
+  { text: "latency", translation: "задержка" },
+  { text: "sequentially", translation: "последовательно" },
+  { text: "although", translation: "хотя" },
+  { text: "however", translation: "однако" },
+  { text: "performance", translation: "производительность" },
+  { text: "each", translation: "каждый" },
+  { text: "additional", translation: "дополнительный" },
+  { text: "under the hood", translation: "под капотом" },
+  { text: "also", translation: "также" },
+  { text: "configures", translation: "настраивает" },
+  { text: "tool", translation: "инструмент" },
+  { text: "allow", translation: "позволять" },
+  { text: "instead", translation: "вместо" },
+  { text: "further", translation: "Дальше" },
+];

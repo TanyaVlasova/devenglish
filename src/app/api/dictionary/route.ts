@@ -1,26 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
+import { words } from "./words";
 
 const seed = async () => {
-  const createdTable = sql`
+  const createdTable = await sql`
     CREATE TABLE IF NOT EXISTS dictionary(
       id SERIAL PRIMARY KEY,
-      word VARCHAR(255) NOT NULL,
-      translation VARCHAR(255) UNIQUE NOT NULL
+      text VARCHAR(255) NOT NULL,
+      translation VARCHAR(255) NOT NULL
     )
   `;
 
   console.log('Created "dictionary" table ');
 
   const initialValues = await Promise.all([
-    sql`
-      INSERT INTO dictionary (word, translation)
-      VALUES ('success', 'успех')
-    `,
-    sql`
-      INSERT INTO dictionary (word, translation)
-      VALUES ('word', 'слово')
-    `,
+    words.map((word) => {
+      return sql`
+        INSERT INTO dictionary (text, translation)
+        VALUES (${word.text}, ${word.translation})
+      `;
+    }),
   ]);
 
   console.log(`Seeded ${initialValues.length} words`);
@@ -33,7 +33,6 @@ export async function GET() {
     const { rows: dictionary } = await sql`SELECT * FROM dictionary`;
 
     return NextResponse.json({ ok: true, data: dictionary });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.message === 'relation "dictionary" does not exist') {
       console.log(
@@ -50,4 +49,10 @@ export async function GET() {
       return NextResponse.json({ ok: false, error, message: error?.message });
     }
   }
+}
+
+export async function GE2T() {
+  await sql`DROP TABLE IF EXISTS dictionary`;
+
+  return NextResponse.json({ drop: "ok" });
 }

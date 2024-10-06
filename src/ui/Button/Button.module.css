@@ -1,0 +1,18 @@
+.button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-family: inherit;
+  transition: font-variation-settings 100ms;
+  font-variation-settings: "wght" 300;
+  line-height: 1;
+  padding: 0.7em 0;
+  border-radius: 0.7em;
+  width: 250px;
+  cursor: pointer;
+  height: fit-content;
+  text-shadow: 0 0.2em 0.12em #0000003b;
+  box-shadow: 0 0.5em 0.8em #00000023;
+  color: #2e2e2e;
+  background-color: #53535318;
+}

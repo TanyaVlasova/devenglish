@@ -1,18 +1,60 @@
 .button {
+  border: 1px solid transparent;
   background: none;
-  border: none;
-  font-size: 20px;
   font-family: inherit;
-  transition: font-variation-settings 100ms;
-  font-variation-settings: "wght" 300;
   line-height: 1;
-  padding: 0.7em 0;
-  border-radius: 0.7em;
-  width: 250px;
+  padding: 0.7em 1em;
+  border-radius: 0.5em;
+  max-width: 18em;
+  width: 100%;
   cursor: pointer;
   height: fit-content;
-  text-shadow: 0 0.2em 0.12em #0000003b;
-  box-shadow: 0 0.5em 0.8em #00000023;
-  color: #2e2e2e;
-  background-color: #53535318;
+  transition: background-color 100ms ease-out;
+  word-break: auto-phrase;
+}
+
+.primary {
+  border: 1px solid;
+}
+
+.secondary {
+  width: fit-content;
+}
+
+.sizeS {
+  font-size: 16px;
+}
+
+.sizeM {
+  font-size: 18px;
+}
+
+.wide {
+  max-width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .sizeS {
+    font-size: 14px;
+  }
+
+  .sizeM {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sizeS {
+    font-size: 12px;
+  }
+
+  .sizeM {
+    font-size: 14px;
+  }
+}
+
+@media (hover: hover) {
+  .secondary:hover {
+    background-color: #00000012;
+  }
 }

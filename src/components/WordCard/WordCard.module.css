@@ -26,62 +26,120 @@
   box-sizing: border-box;
   backface-visibility: hidden;
   border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  word-break: break-all;
+  hyphens: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.face {
+  grid-template-areas:
+    "text text text"
+    "text text text"
+    "translation translation translation"
+    ". button .";
 }
 
 .backface {
   transform: rotateY(180deg);
+  grid-template-areas:
+    "text text text"
+    "text text text"
+    "translation translation translation"
+    ". button delete";
 }
 
 .text {
-  font-size: 150px;
+  font-size: 100px;
   text-align: center;
   text-shadow: 0 0.2em 0.12em #0000003b;
-  font-family: var(--font-calypso);
-  margin-top: auto;
+  font-family: var(--font-vetrino);
+  grid-area: text;
+  align-self: flex-end;
 }
 
 .translation {
-  margin-top: 30px;
-  font-size: 50px;
+  font-size: 30px;
   text-align: center;
   text-shadow: 0 0.2em 0.12em #0000003b;
-  font-family: var(--font-calypso);
+  font-style: italic;
+  font-family: var(--font-vetrino);
+  grid-area: translation;
+  align-self: center;
 }
 
 .button {
-  margin-top: auto;
+  grid-area: button;
+  align-self: flex-end;
+  width: 100%;
+}
+
+.deleteButton {
+  grid-area: delete;
+  justify-self: flex-end;
+  align-self: flex-end;
 }
 
 @media (max-width: 1023px) {
   .wrapper {
-    max-width: 600px;
+    max-width: 800px;
     height: 600px;
   }
 
+  .face,
+  .backface {
+    padding: 30px 20px;
+  }
+
   .text {
-    font-size: 80px;
+    font-size: 60px;
   }
 
   .translation {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 
 @media (max-width: 767px) {
   .wrapper {
     max-width: 85vw;
-    height: 85vh;
+    height: 70vh;
+  }
+
+  .face,
+  .backface {
+    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  .face {
+    grid-template-areas:
+      ". ."
+      "text text"
+      "translation translation"
+      "button button";
+  }
+
+  .backface {
+    grid-template-areas:
+      ". delete"
+      "text text"
+      "translation translation"
+      "button button";
   }
 
   .text {
-    font-size: 50px;
+    font-size: 40px;
   }
 
   .translation {
-    font-size: 20px;
+    font-size: 16px;
+  }
+
+  .deleteButton {
+    align-self: flex-start;
   }
 }

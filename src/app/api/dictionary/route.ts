@@ -50,3 +50,16 @@ export async function GET() {
     }
   }
 }
+
+export async function DELETE(response: Response) {
+  const body = await response.json();
+  const id = body.id;
+
+  try {
+    await sql`DELETE FROM dictionary WHERE id = ${id}`;
+
+    return NextResponse.json({ ok: true, data: id });
+  } catch (error: any) {
+    return NextResponse.json({ ok: false, error, message: error?.message });
+  }
+}

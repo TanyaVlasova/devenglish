@@ -37,3 +37,26 @@
   justify-content: center;
   perspective: 1000px;
 }
+
+@media (orientation: portrait) {
+  .page {
+    height: 100vh;
+    background: linear-gradient(
+      to bottom,
+      #b3ffcb 0%,
+      #ffeeb3 20%,
+      #ffc7b3 40%,
+      #ddc2ff 60%,
+      #b3e0ff 80%,
+      #b3ffba 100%
+    );
+    background-size: 200% 200%;
+    animation: rainbow 10s ease infinite;
+  }
+}
+
+@media (max-width: 767px) {
+  .card {
+    transform: translateY(-3vh);
+  }
+}

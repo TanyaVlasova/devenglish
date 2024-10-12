@@ -29,13 +29,32 @@ const WordCard: FC<WordCardProps> = (props) => {
     return () => clearTimeout(timeout);
   };
 
+  const handleRemoveWord = async () => {
+    const body = { id: word.id };
+    const result = await fetch("/api/dictionary", {
+      method: "DELETE",
+      body: JSON.stringify(body),
+    });
+    if (result.ok) {
+      // И заново делать запрос хз
+      handleTurnOver();
+    }
+  };
+
   return (
     <div className={cn(styles.wrapper, className)} {...restProps}>
       <div className={styles.background} />
-      <div className={styles.card} onClick={handleTurnOver} ref={cardRef}>
+      <div className={styles.card} ref={cardRef}>
         <div className={styles.face}>
           <div className={styles.text}>{word.text}</div>
-          <Button className={styles.button}>Перевернуть</Button>
+          <Button
+            className={styles.button}
+            size="m"
+            wide
+            onClick={handleTurnOver}
+          >
+            Перевернуть
+          </Button>
         </div>
         <div className={styles.backface}>
           <div className={styles.text}>{word.text}</div>
@@ -44,8 +63,22 @@ const WordCard: FC<WordCardProps> = (props) => {
               <div key={translation}>{translation}</div>
             ))}
           </div>
-
-          <Button className={styles.button}>Далее</Button>
+          <Button
+            className={styles.button}
+            size="m"
+            wide
+            onClick={handleTurnOver}
+          >
+            Далее
+          </Button>
+          <Button
+            className={styles.deleteButton}
+            size="s"
+            view="secondary"
+            onClick={handleRemoveWord}
+          >
+            Больше не показывать
+          </Button>
         </div>
       </div>
     </div>

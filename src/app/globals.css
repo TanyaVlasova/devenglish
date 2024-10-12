@@ -1,3 +1,9 @@
 body {
   margin: 0;
+  color: #222;
+}
+
+::selection {
+  background: #809778;
+  color: #fff;
 }

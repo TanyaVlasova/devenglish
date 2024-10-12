@@ -51,6 +51,7 @@ const IndexPage = () => {
 
         {!!words[currentWordIndex] && (
           <WordCard
+            className={styles.card}
             word={words[currentWordIndex]}
             onChangeWord={handleChangeWord}
           />

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { words } from "./words";
 
@@ -51,8 +51,8 @@ export async function GET() {
   }
 }
 
-export async function DELETE(response: Response) {
-  const body = await response.json();
+export async function DELETE(request: NextRequest) {
+  const body = await request.json();
   const id = body.id;
 
   try {

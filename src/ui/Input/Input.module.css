@@ -1,16 +1,17 @@
 .input {
   background-color: transparent;
-  border: 1px solid;
+  border: 1px solid #222;
   line-height: 1;
   padding: 0.7em 1em;
   border-radius: 0.5em;
   font-size: 18px;
   font-family: inherit;
   outline: none;
+  color: #222;
 }
 
 .input:focus {
-  outline: 1px solid;
+  outline: 1px solid #222;
 }
 
 @media (max-width: 1023px) {

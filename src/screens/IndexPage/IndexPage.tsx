@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./IndexPage.module.css";
 import WordCard from "@/components/WordCard";
 import { Result, Word } from "@/app/types";
+import MainLayout from "@/layouts/MainLayout";
 
 function getRandomInt(length: number, currentInt?: number) {
   const randomInt = Math.floor(Math.random() * length);
@@ -45,7 +46,7 @@ const IndexPage = () => {
   };
 
   return (
-    <div className={styles.page}>
+    <MainLayout>
       <div className={styles.white}>
         {!!error && <h3>{error}</h3>}
 
@@ -57,7 +58,7 @@ const IndexPage = () => {
           />
         )}
       </div>
-    </div>
+    </MainLayout>
   );
 };
 

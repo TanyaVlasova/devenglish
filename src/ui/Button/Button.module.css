@@ -9,12 +9,13 @@
   width: 100%;
   cursor: pointer;
   height: fit-content;
-  transition: background-color 100ms ease-out;
+  transition: background-color 100ms ease-out, outline 200ms ease-out;
   word-break: auto-phrase;
 }
 
 .primary {
   border: 1px solid;
+  outline: 1px solid transparent;
 }
 
 .secondary {
@@ -54,6 +55,10 @@
 }
 
 @media (hover: hover) {
+  .primary:hover {
+    outline: 1px solid;
+  }
+
   .secondary:hover {
     background-color: #00000012;
   }

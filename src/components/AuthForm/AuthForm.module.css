@@ -1,0 +1,60 @@
+.wrapper {
+  display: grid;
+  max-width: 600px;
+  width: 100%;
+  background-color: #ffffff21;
+  box-shadow: 0 60px 100px 0 #42202031;
+  padding: 50px 30px;
+  box-sizing: border-box;
+  border-radius: 15px;
+}
+
+.title {
+  text-align: center;
+  font-size: 55px;
+  font-family: var(--font-vetrino);
+  font-style: italic;
+  margin-bottom: 40px;
+  text-shadow: 0 0.2em 0.12em #0000003b;
+}
+
+.login {
+  margin-bottom: 20px;
+}
+
+.password {
+  margin-bottom: 40px;
+}
+
+.button {
+  justify-self: center;
+}
+
+@media (max-width: 1023px) {
+  .wrapper {
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .wrapper {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .login {
+    margin-bottom: 15px;
+  }
+
+  .title,
+  .password {
+    margin-bottom: 30px;
+  }
+}

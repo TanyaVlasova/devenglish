@@ -63,3 +63,9 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ ok: false, error, message: error?.message });
   }
 }
+
+// export async function GET() {
+//   await sql`DROP TABLE dictionary`;
+
+//   return NextResponse.json({ drop: "ok" });
+// }

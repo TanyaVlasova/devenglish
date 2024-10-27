@@ -1,17 +1,86 @@
-.white {
+.page {
   width: 100%;
   height: 100%;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+}
+
+.cards {
+  display: grid;
+  width: 100%;
+  justify-items: center;
   perspective: 1000px;
 }
 
+.card {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in-out;
+}
+
+.currentCard {
+  transform: rotateY(0);
+  z-index: 2;
+  transform-origin: left bottom;
+}
+
+.nextCard {
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1;
+  transform-origin: right top;
+}
+
+.animation .currentCard {
+  animation-name: currentCard;
+}
+
+.animation .nextCard {
+  animation-name: nextCard;
+}
+
 @media (max-width: 767px) {
-  .card {
+  .cards {
     transform: translateY(-3vh);
+  }
+}
+
+@keyframes currentCard {
+  0% {
+    transform: rotateZ(0) translateY(0);
+    z-index: 2;
+  }
+  49% {
+    z-index: 2;
+  }
+  50% {
+    transform: rotateZ(-25deg) translateY(-50%) translateX(-15%);
+    z-index: 1;
+  }
+  100% {
+    transform: rotateZ(0) translateY(0);
+    z-index: 1;
+  }
+}
+
+@keyframes nextCard {
+  0% {
+    transform: rotateZ(0) translateY(0);
+    z-index: 1;
+  }
+  49% {
+    z-index: 1;
+  }
+  50% {
+    transform: rotateZ(-7deg) translateY(30%);
+    z-index: 2;
+  }
+  100% {
+    transform: rotateZ(0) translateY(0);
+    z-index: 2;
   }
 }

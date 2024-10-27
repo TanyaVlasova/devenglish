@@ -1,88 +1,66 @@
 "use client";
 
+import { forwardRef, useRef } from "react";
 import cn from "classnames";
+
+import Face from "./elems/Face";
+import Backface from "./elems/Backface";
 import styles from "./WordCard.module.css";
-import { useRef, useState, type FC, type HTMLAttributes } from "react";
-import { Word } from "@/app/types";
-import Button from "@/ui/Button";
+
+import type { HTMLAttributes } from "react";
+import type { Word } from "@/app/types";
 
 interface WordCardProps extends HTMLAttributes<HTMLDivElement> {
   word: Word;
-  onChangeWord?(): void;
+  onTurnOver?(): void;
+  onChangeCard?(): void;
 }
 
-const WordCard: FC<WordCardProps> = (props) => {
-  const { className, word, onChangeWord, ...restProps } = props;
-  const [turnOvered, setTurnOvered] = useState(false);
+const WordCard = forwardRef<HTMLDivElement, WordCardProps>((props, ref) => {
+  const { className, word, onChangeCard, onTurnOver, ...restProps } = props;
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleTurnOver = () => {
     if (!cardRef.current) return;
 
-    cardRef.current.style.transform = `rotateY(${turnOvered ? 360 : 180}deg)`;
-    setTurnOvered((prev) => !prev);
+    cardRef.current.style.transition = "transform 500ms ease-in-out";
+    cardRef.current.style.transform = "rotateY(-180deg)";
 
-    const timeout = setTimeout(() => {
-      if (turnOvered && onChangeWord) onChangeWord();
-    }, 200);
-
-    return () => clearTimeout(timeout);
+    if (onTurnOver) onTurnOver();
   };
 
-  const handleRemoveWord = async () => {
-    const body = { id: word.id };
-    const result = await fetch("/api/dictionary", {
-      method: "DELETE",
-      body: JSON.stringify(body),
-    });
-    if (result.ok) {
-      // И заново делать запрос хз
-      handleTurnOver();
-    }
+  const handleChangeCard = () => {
+    if (!onChangeCard) return;
+
+    onChangeCard();
+
+    const timer = setTimeout(() => {
+      if (!cardRef.current) return;
+      cardRef.current.style.transition = "none";
+      cardRef.current.style.transform = "rotateY(0)";
+    }, 500);
+
+    return () => clearTimeout(timer);
   };
 
   return (
-    <div className={cn(styles.wrapper, className)} {...restProps}>
-      <div className={styles.background} />
+    <div className={cn(styles.wrapper, className)} ref={ref} {...restProps}>
       <div className={styles.card} ref={cardRef}>
-        <div className={styles.face}>
-          <div className={styles.text}>{word.text}</div>
-          <Button
-            className={styles.button}
-            size="m"
-            wide
-            onClick={handleTurnOver}
-          >
-            Перевернуть
-          </Button>
-        </div>
-        <div className={styles.backface}>
-          <div className={styles.text}>{word.text}</div>
-          <div className={styles.translation}>
-            {word.translation.split(",").map((translation) => (
-              <div key={translation}>{translation}</div>
-            ))}
-          </div>
-          <Button
-            className={styles.button}
-            size="m"
-            wide
-            onClick={handleTurnOver}
-          >
-            Далее
-          </Button>
-          <Button
-            className={styles.deleteButton}
-            size="s"
-            view="secondary"
-            onClick={handleRemoveWord}
-          >
-            Больше не показывать
-          </Button>
-        </div>
+        <Face
+          className={styles.face}
+          word={word}
+          onButtonClick={handleTurnOver}
+        />
+        <Backface
+          className={styles.backface}
+          word={word}
+          onButtonClick={handleChangeCard}
+        />
       </div>
     </div>
   );
-};
+});
+
+WordCard.displayName = "WordCard";
 
 export default WordCard;

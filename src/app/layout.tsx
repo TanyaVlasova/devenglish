@@ -3,6 +3,7 @@ import "./globals.css";
 import { FC, PropsWithChildren } from "react";
 import QueryClientProvider from "./providers/QueryClientProvider";
 import FontsProvider from "./providers/FontsProvider";
+import StoreProvider from "./providers/StoreProvider";
 
 export const metadata: Metadata = {
   title: "Dev english",
@@ -21,7 +22,9 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
     <html lang="en">
       <body>
         <QueryClientProvider>
-          <FontsProvider>{children}</FontsProvider>
+          <FontsProvider>
+            <StoreProvider>{children}</StoreProvider>
+          </FontsProvider>
         </QueryClientProvider>
       </body>
     </html>

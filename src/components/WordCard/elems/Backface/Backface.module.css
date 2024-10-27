@@ -1,0 +1,82 @@
+.backface {
+  width: inherit;
+  height: inherit;
+  padding: 50px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  hyphens: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr 1fr auto;
+  grid-template-areas:
+    ". . menu"
+    "text text text"
+    "translation translation translation"
+    ". button delete";
+  gap: 20px;
+  justify-items: center;
+}
+
+.text {
+  font-size: 100px;
+  text-align: center;
+  text-shadow: 0 0.2em 0.12em #0000003b;
+  font-family: var(--font-vetrino);
+  grid-area: text;
+  align-self: flex-end;
+}
+
+.translation {
+  font-size: 30px;
+  text-align: center;
+  text-shadow: 0 0.2em 0.12em #0000003b;
+  font-style: italic;
+  font-family: var(--font-vetrino);
+  grid-area: translation;
+  align-self: center;
+}
+
+.button {
+  grid-area: button;
+  align-self: flex-end;
+  width: 100%;
+}
+
+.menu {
+  grid-area: menu;
+  justify-self: flex-end;
+}
+
+@media (max-width: 1023px) {
+  .backface {
+    padding: 30px 20px;
+  }
+
+  .text {
+    font-size: 60px;
+  }
+
+  .translation {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .backface {
+    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      ". menu"
+      "text text"
+      "translation translation"
+      "button button";
+  }
+
+  .text {
+    font-size: 40px;
+  }
+
+  .translation {
+    font-size: 16px;
+  }
+}

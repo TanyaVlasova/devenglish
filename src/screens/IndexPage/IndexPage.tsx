@@ -1,21 +1,26 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import styles from "./IndexPage.module.css";
-import WordCard from "@/components/WordCard";
-import { Result, Word } from "@/app/types";
-import MainLayout from "@/layouts/MainLayout";
+import cn from "classnames";
+
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setAllWords, setCurrentWord, setNextWord } from "@/store/words";
 import { getRandomNumber } from "@/utils/getRandomNumber";
+import WordCard from "@/components/WordCard";
+import MainLayout from "@/layouts/MainLayout";
+import styles from "./IndexPage.module.css";
+
+import type { Result, Word } from "@/app/types";
 
 const IndexPage = () => {
-  const [error, setError] = useState("");
   const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.words);
+  const { allWords, currentWord, nextWord } = data;
+  const [error, setError] = useState("");
+
+  const [animation, setAnimation] = useState(false);
+  const nextCardRef = useRef<HTMLDivElement>(null);
   const initial = useRef(false);
-  const { currentWord, nextWord, allWords } = useAppSelector(
-    (state) => state.words
-  );
 
   const fetchData = useCallback(async () => {
     const response: Response = await fetch("/api/dictionary");
@@ -39,31 +44,59 @@ const IndexPage = () => {
     }
   }, [dispatch]);
 
+  const handleChangeCard = () => {
+    setAnimation(true);
+
+    setTimeout(() => {
+      setAnimation(false);
+      dispatch(setCurrentWord(nextWord));
+
+      const current = allWords.findIndex((word) => word.id === nextWord?.id);
+      const next = getRandomNumber(allWords.length, current);
+      dispatch(setNextWord(allWords[next]));
+
+      if (!nextCardRef.current) return;
+      nextCardRef.current.style.visibility = "hidden";
+    }, 500);
+  };
+
+  const handleTurnOver = () => {
+    setTimeout(() => {
+      if (!nextCardRef.current) return;
+      nextCardRef.current.style.visibility = "visible";
+    }, 500);
+  };
+
   useEffect(() => {
     if (initial.current) return;
     fetchData();
     initial.current = true;
   }, [fetchData]);
 
-  const handleChangeWord = () => {
-    const index = getRandomNumber(allWords.length);
-    dispatch(setCurrentWord(allWords[index]));
-  };
-
   if (!currentWord || !nextWord) return;
 
   return (
     <MainLayout>
-      <div className={styles.white}>
+      <div className={styles.page}>
         {error && <h3>{error}</h3>}
 
-        {currentWord && (
+        <div
+          className={cn(styles.cards, {
+            [styles.animation]: animation,
+          })}
+        >
           <WordCard
-            className={styles.card}
+            className={cn(styles.card, styles.currentCard)}
             word={currentWord}
-            onChangeWord={handleChangeWord}
+            onTurnOver={handleTurnOver}
+            onChangeCard={handleChangeCard}
           />
-        )}
+          <WordCard
+            className={cn(styles.card, styles.nextCard)}
+            ref={nextCardRef}
+            word={nextWord}
+          />
+        </div>
       </div>
     </MainLayout>
   );

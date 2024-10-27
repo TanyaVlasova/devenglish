@@ -7,10 +7,11 @@ import StoreProvider from "./providers/StoreProvider";
 
 export const metadata: Metadata = {
   title: "Dev english",
+  appleWebApp: true,
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffded2",
+  themeColor: "#f0e8e6",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,

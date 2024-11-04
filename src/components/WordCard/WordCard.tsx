@@ -14,10 +14,18 @@ interface WordCardProps extends HTMLAttributes<HTMLDivElement> {
   word: Word;
   onTurnOver?(): void;
   onChangeCard?(): void;
+  onChangeUnturnedCard?(): void;
 }
 
 const WordCard = forwardRef<HTMLDivElement, WordCardProps>((props, ref) => {
-  const { className, word, onChangeCard, onTurnOver, ...restProps } = props;
+  const {
+    className,
+    word,
+    onChangeCard,
+    onTurnOver,
+    onChangeUnturnedCard,
+    ...restProps
+  } = props;
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleTurnOver = () => {
@@ -50,11 +58,13 @@ const WordCard = forwardRef<HTMLDivElement, WordCardProps>((props, ref) => {
           className={styles.face}
           word={word}
           onButtonClick={handleTurnOver}
+          onDeleteWord={onChangeUnturnedCard}
         />
         <Backface
           className={styles.backface}
           word={word}
           onButtonClick={handleChangeCard}
+          onDeleteWord={handleChangeCard}
         />
       </div>
     </div>

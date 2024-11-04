@@ -10,23 +10,26 @@ import type { Word } from "@/app/types";
 interface BackfaceProps extends HTMLAttributes<HTMLDivElement> {
   word: Word;
   onButtonClick?(): void;
+  onDeleteWord?(): void;
 }
 
 const Backface: FC<BackfaceProps> = (props) => {
-  const { className, word, onButtonClick, ...restProps } = props;
+  const { className, word, onButtonClick, onDeleteWord, ...restProps } = props;
 
   return (
     <div className={cn(styles.backface, className)} {...restProps}>
-      <Menu className={styles.menu} word={word} />
-      <div className={styles.text}>{word.text}</div>
-      <div className={styles.translation}>
-        {word.translation.split(",").map((translation) => (
-          <div key={translation}>{translation}</div>
-        ))}
+      <div className={styles.container}>
+        <Menu className={styles.menu} word={word} onDeleteWord={onDeleteWord} />
+        <div className={styles.text}>{word.text}</div>
+        <div className={styles.translation}>
+          {word.translation.split(",").map((translation) => (
+            <div key={translation}>{translation}</div>
+          ))}
+        </div>
+        <Button className={styles.button} size="m" wide onClick={onButtonClick}>
+          Далее
+        </Button>
       </div>
-      <Button className={styles.button} size="m" wide onClick={onButtonClick}>
-        Далее
-      </Button>
     </div>
   );
 };

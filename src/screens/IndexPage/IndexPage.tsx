@@ -67,6 +67,13 @@ const IndexPage = () => {
     }, 500);
   };
 
+  const handleChangeUnturnedCard = () => {
+    if (!nextCardRef.current) return;
+    nextCardRef.current.style.visibility = "visible";
+
+    handleChangeCard();
+  };
+
   useEffect(() => {
     if (initial.current) return;
     fetchData();
@@ -90,6 +97,7 @@ const IndexPage = () => {
             word={currentWord}
             onTurnOver={handleTurnOver}
             onChangeCard={handleChangeCard}
+            onChangeUnturnedCard={handleChangeUnturnedCard}
           />
           <WordCard
             className={cn(styles.card, styles.nextCard)}

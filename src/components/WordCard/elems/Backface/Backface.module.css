@@ -1,9 +1,16 @@
 .backface {
-  width: inherit;
-  height: inherit;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
   padding: 50px;
   box-sizing: border-box;
-  backface-visibility: hidden;
   hyphens: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -48,7 +55,7 @@
 }
 
 @media (max-width: 1023px) {
-  .backface {
+  .container {
     padding: 30px 20px;
   }
 
@@ -62,7 +69,7 @@
 }
 
 @media (max-width: 767px) {
-  .backface {
+  .container {
     padding: 20px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas:

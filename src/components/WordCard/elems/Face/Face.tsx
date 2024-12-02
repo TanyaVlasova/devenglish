@@ -1,7 +1,6 @@
 import cn from "classnames";
 
 import Button from "@/ui/Button";
-import Menu from "../Menu";
 import styles from "./Face.module.css";
 
 import type { FC, HTMLAttributes } from "react";
@@ -14,12 +13,12 @@ interface FaceProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Face: FC<FaceProps> = (props) => {
-  const { className, word, onButtonClick, onDeleteWord, ...restProps } = props;
+  const { className, word, onButtonClick, ...restProps } = props;
 
   return (
     <div className={cn(styles.face, className)} {...restProps}>
       <div className={styles.container}>
-        <Menu className={styles.menu} word={word} onDeleteWord={onDeleteWord} />
+        {/* <Menu className={styles.menu} word={word} onDeleteWord={onDeleteWord} /> */}
         <div className={styles.text}>{word.text}</div>
         <Button className={styles.button} size="m" wide onClick={onButtonClick}>
           Перевернуть

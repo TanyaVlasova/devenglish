@@ -16,7 +16,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto 1fr 1fr auto;
   grid-template-areas:
-    ". . menu"
+    ". . ."
     "text text text"
     "translation translation translation"
     ". button delete";
@@ -73,7 +73,7 @@
     padding: 20px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas:
-      ". menu"
+      ". ."
       "text text"
       "translation translation"
       "button button";

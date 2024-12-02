@@ -1,7 +1,6 @@
 import cn from "classnames";
 
 import Button from "@/ui/Button";
-import Menu from "../Menu";
 import styles from "./Backface.module.css";
 
 import type { FC, HTMLAttributes } from "react";
@@ -14,12 +13,12 @@ interface BackfaceProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Backface: FC<BackfaceProps> = (props) => {
-  const { className, word, onButtonClick, onDeleteWord, ...restProps } = props;
+  const { className, word, onButtonClick, ...restProps } = props;
 
   return (
     <div className={cn(styles.backface, className)} {...restProps}>
       <div className={styles.container}>
-        <Menu className={styles.menu} word={word} onDeleteWord={onDeleteWord} />
+        {/* <Menu className={styles.menu} word={word} onDeleteWord={onDeleteWord} /> */}
         <div className={styles.text}>{word.text}</div>
         <div className={styles.translation}>
           {word.translation.split(",").map((translation) => (
